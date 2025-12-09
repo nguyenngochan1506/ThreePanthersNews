@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.edu.hcmuaf.fit.ThreePanthers.commons.SuccessResponse;
 import vn.edu.hcmuaf.fit.ThreePanthers.dtos.req.LoginRequestDto;
 import vn.edu.hcmuaf.fit.ThreePanthers.dtos.req.RegisterRequestDto;
+import vn.edu.hcmuaf.fit.ThreePanthers.dtos.req.VerifyRequestDto;
 import vn.edu.hcmuaf.fit.ThreePanthers.dtos.res.AuthResponseDto;
 import vn.edu.hcmuaf.fit.ThreePanthers.services.AuthService;
 
@@ -18,11 +19,22 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public SuccessResponse<AuthResponseDto> register(@RequestBody RegisterRequestDto req) {
-        return SuccessResponse.<AuthResponseDto>builder()
+    public SuccessResponse<String> register(@RequestBody RegisterRequestDto req) {
+        authService.register(req); 
+        return SuccessResponse.<String>builder()
                 .status(201)
-                .message("Đăng ký thành công, vui lòng kiểm tra email!")
-                .data(authService.register(req))
+                .message("Đăng ký thành công. Vui lòng kiểm tra email để nhập mã xác thực.")
+                .data(null)
+                .build();
+    }
+
+    @PostMapping("/verify")
+    public SuccessResponse<String> verify(@RequestBody VerifyRequestDto req) {
+        authService.verifyAccount(req);
+        return SuccessResponse.<String>builder()
+                .status(200)
+                .message("Xác thực tài khoản thành công. Bạn có thể đăng nhập ngay bây giờ.")
+                .data(null)
                 .build();
     }
 

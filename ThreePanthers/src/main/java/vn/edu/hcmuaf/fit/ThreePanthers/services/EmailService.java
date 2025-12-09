@@ -20,4 +20,17 @@ public class EmailService {
         
         mailSender.send(message);
     }
+
+    @Async
+    public void sendVerificationEmail(String toEmail, String username, String code) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject("Xác thực tài khoản ThreePanthers");
+        message.setText("Xin chào " + username + ",\n\n"
+                + "Mã xác thực tài khoản của bạn là: " + code + "\n"
+                + "Mã này sẽ hết hạn sau 15 phút.\n\n"
+                + "Trân trọng,");
+        
+        mailSender.send(message);
+    }
 }

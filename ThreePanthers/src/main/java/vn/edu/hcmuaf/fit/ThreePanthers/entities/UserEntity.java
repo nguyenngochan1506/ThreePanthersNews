@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.ThreePanthers.entities;
 
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -58,6 +59,12 @@ public class UserEntity extends BaseEntity implements UserDetails{
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
+    @Column(name = "verification_code")
+    private String verificationCode;
+
+    @Column(name = "verification_expiration")
+    private LocalDateTime verificationExpiration;
+
     @Override
     public boolean isAccountNonExpired() { return true; }
     @Override
@@ -65,5 +72,7 @@ public class UserEntity extends BaseEntity implements UserDetails{
     @Override
     public boolean isCredentialsNonExpired() { return true; }
     @Override
-    public boolean isEnabled() { return status.equals(UserStatus.ACTIVE); }
+    public boolean isEnabled() {
+        return status == UserStatus.ACTIVE;
+    }
 }
