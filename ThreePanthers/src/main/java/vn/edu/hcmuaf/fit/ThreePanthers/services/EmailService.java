@@ -33,4 +33,18 @@ public class EmailService {
         
         mailSender.send(message);
     }
+
+    @Async
+    public void sendForgotPasswordEmail(String toEmail, String username, String otp) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(toEmail);
+        message.setSubject("Yêu cầu đặt lại mật khẩu - ThreePanthers");
+        message.setText("Xin chào " + username + ",\n\n"
+                + "Bạn vừa yêu cầu đặt lại mật khẩu. Mã xác thực (OTP) của bạn là: " + otp + "\n"
+                + "Mã này sẽ hết hạn sau 15 phút.\n"
+                + "Nếu bạn không yêu cầu điều này, vui lòng bỏ qua email này.\n\n"
+                + "Trân trọng,");
+        
+        mailSender.send(message);
+    }
 }
