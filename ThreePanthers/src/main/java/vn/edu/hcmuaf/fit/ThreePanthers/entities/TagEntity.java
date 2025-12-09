@@ -7,9 +7,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
 
 @Entity
 @Table(name = "tbl_tags")
+@Getter
 public class TagEntity extends BaseEntity {
     @Column(name = "name")
     private String name;

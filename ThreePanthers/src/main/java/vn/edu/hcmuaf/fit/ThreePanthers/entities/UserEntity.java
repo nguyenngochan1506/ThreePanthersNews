@@ -1,8 +1,14 @@
 package vn.edu.hcmuaf.fit.ThreePanthers.entities;
 
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,12 +16,20 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import vn.edu.hcmuaf.fit.ThreePanthers.commons.UserRole;
 import vn.edu.hcmuaf.fit.ThreePanthers.commons.UserStatus;
 
 @Entity
 @Table(name = "tbl_users")
-public class UserEntity extends BaseEntity {
+@Getter
+@Setter 
+@NoArgsConstructor 
+@AllArgsConstructor
+public class UserEntity extends BaseEntity implements UserDetails{
     @Column(name = "username", unique = true)
     private String username;
 
@@ -38,4 +52,18 @@ public class UserEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private Set<CommentEntity> comments = new HashSet<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+    @Override
+    public boolean isAccountNonLocked() { return !status.equals(UserStatus.BLOCKED); }
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+    @Override
+    public boolean isEnabled() { return status.equals(UserStatus.ACTIVE); }
 }
