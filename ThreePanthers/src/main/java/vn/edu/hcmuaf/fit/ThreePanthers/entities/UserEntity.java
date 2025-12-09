@@ -15,6 +15,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -64,6 +67,14 @@ public class UserEntity extends BaseEntity implements UserDetails{
 
     @Column(name = "verification_expiration")
     private LocalDateTime verificationExpiration;
+
+    @ManyToMany
+    @JoinTable(
+        name = "tbl_user_saved_posts",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "post_id")
+    )
+    private Set<PostEntity> savedPosts = new HashSet<>();
 
     @Override
     public boolean isAccountNonExpired() { return true; }

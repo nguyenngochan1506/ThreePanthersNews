@@ -14,5 +14,7 @@ public class CommentResponseDto {
     private String content;
     private LocalDateTime createdAt;
     private String user; 
+    private String postSlug;
+    private String postTitle;
     private List<CommentResponseDto> replies = new ArrayList<>();
 }

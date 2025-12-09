@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.ThreePanthers.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,21 +22,40 @@ import vn.edu.hcmuaf.fit.ThreePanthers.dtos.res.PostDetailResponseDto;
 import vn.edu.hcmuaf.fit.ThreePanthers.dtos.res.PostSummaryResponseDto;
 import vn.edu.hcmuaf.fit.ThreePanthers.entities.CategoryEntity;
 import vn.edu.hcmuaf.fit.ThreePanthers.entities.PostEntity;
+import vn.edu.hcmuaf.fit.ThreePanthers.entities.PostViewEntity;
 import vn.edu.hcmuaf.fit.ThreePanthers.entities.TagEntity;
 import vn.edu.hcmuaf.fit.ThreePanthers.exeptions.ResourceNotFoundException;
 import vn.edu.hcmuaf.fit.ThreePanthers.repositories.PostRepository;
+import vn.edu.hcmuaf.fit.ThreePanthers.repositories.PostViewRepository;
+import vn.edu.hcmuaf.fit.ThreePanthers.repositories.UserRepository;
 import vn.edu.hcmuaf.fit.ThreePanthers.services.PostService;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
+    private final PostViewRepository postViewRepository;
 
     @Override
     public PostDetailResponseDto getPostDetail(String slug) {
         PostEntity e = postRepository.findBySlug(slug);
         if (e == null)
             throw new ResourceNotFoundException("Không tìm thấy bài viết");
+
+        //check xem co user dang nhap ko cho phan loging view
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!username.equals("anonymousUser")) {
+            userRepository.findByUsername(username).ifPresent(user -> {
+                PostViewEntity view = postViewRepository.findByUserAndPost(user, e)
+                        .orElse(new PostViewEntity());
+                view.setUser(user);
+                view.setPost(e);
+                view.setViewedAt(LocalDateTime.now());
+                postViewRepository.save(view);
+            });
+        }
+
         PostDetailResponseDto res = new PostDetailResponseDto();
 
         res.setId(e.getId());
