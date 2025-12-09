@@ -14,10 +14,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import lombok.RequiredArgsConstructor;
 import vn.edu.hcmuaf.fit.ThreePanthers.commons.PageResponse;
 import vn.edu.hcmuaf.fit.ThreePanthers.commons.PostFilter;
+import vn.edu.hcmuaf.fit.ThreePanthers.commons.PostStatus;
 import vn.edu.hcmuaf.fit.ThreePanthers.dtos.res.PostDetailResponseDto;
 import vn.edu.hcmuaf.fit.ThreePanthers.dtos.res.PostSummaryResponseDto;
 import vn.edu.hcmuaf.fit.ThreePanthers.entities.CategoryEntity;
@@ -70,6 +72,20 @@ public class PostServiceImpl implements PostService {
         res.setViewCount(e.getViewCount());
         res.setCategory(e.getCategory());
 
+        if (e.getCategory() != null) {
+            List<PostEntity> relatedEntities = postRepository.findTop5ByCategoryAndStatusAndIdNotOrderByPublishedAtDesc(
+                e.getCategory(),    
+                PostStatus.PUBLISHED,
+                e.getId()   
+            );
+
+            List<PostSummaryResponseDto> relatedDtos = relatedEntities.stream()
+                    .map(this::mapToSummaryDto)
+                    .collect(Collectors.toList());
+            
+            res.setRelatedPosts(relatedDtos);
+        }
+
         return res;
     }
 
@@ -114,6 +130,16 @@ public class PostServiceImpl implements PostService {
 
             if (filter.getIsFeatured() != null) {
                 predicates.add(cb.equal(root.get("isFeatured"), filter.getIsFeatured()));
+            }
+
+            if (StringUtils.hasText(filter.getKeyword())) {
+                String searchKey = "%" + filter.getKeyword().trim().toLowerCase() + "%";
+                
+                Predicate titleLike = cb.like(cb.lower(root.get("title")), searchKey);
+                
+                Predicate summaryLike = cb.like(cb.lower(root.get("summary")), searchKey);
+                
+                predicates.add(cb.or(titleLike, summaryLike));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

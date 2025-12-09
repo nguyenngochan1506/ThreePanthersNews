@@ -14,4 +14,5 @@ public class PostFilter {
     private List<String> tagsSlug;
     private Boolean isFeatured;
     private PostType type;
+    private String keyword;
 }
