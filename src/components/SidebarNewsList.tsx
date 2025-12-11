@@ -12,7 +12,6 @@ export const SidebarNewsList: React.FC<SidebarNewsListProps> = ({ title, posts }
 
     return (
         <div className="mb-8">
-            {/* Tiêu đề khối với thanh đỏ trang trí */}
             <h3 className="text-lg font-bold uppercase mb-4 flex items-center">
                 <span className="bg-red-600 w-1 h-4 mr-2 inline-block"></span>
                 {title}

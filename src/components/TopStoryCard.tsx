@@ -22,7 +22,6 @@ export const TopStoryCard: React.FC<TopStoryCardProps> = ({ post }) => {
             className="w-full mb-8 shadow-none border-b border-gray-200 rounded-none pb-6 hover:opacity-90 transition-opacity"
         >
             <CardBody className="p-0 overflow-visible grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Cột ảnh */}
                 <div className="relative h-64 md:h-auto">
                     <Image
                         alt={post.title}
@@ -32,14 +31,14 @@ export const TopStoryCard: React.FC<TopStoryCardProps> = ({ post }) => {
                     />
                 </div>
 
-                {/* Cột nội dung */}
+                {/* content */}
                 <div className="flex flex-col justify-start">
                     {post.category && (
                         <span className="text-sm text-blue-600 font-bold uppercase mb-2">
                     {post.category.name}
                 </span>
                     )}
-                    {/* Sử dụng font-serif để giống báo chí */}
+
                     <h1 className="text-2xl md:text-4xl font-bold font-serif leading-tight mb-3 hover:text-blue-800">
                         {post.title}
                     </h1>

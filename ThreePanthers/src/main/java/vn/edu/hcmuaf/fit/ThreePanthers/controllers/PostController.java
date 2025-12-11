@@ -18,7 +18,7 @@ import vn.edu.hcmuaf.fit.ThreePanthers.services.PostService;
 
 @RestController
 @RequestMapping("/api/posts")
-@CrossOrigin("*") // 👈 
+@CrossOrigin("*")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;

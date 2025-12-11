@@ -10,7 +10,6 @@ interface PostCardProps {
 export const PostCard: React.FC<PostCardProps> = ({ post }) => {
     const navigate = useNavigate();
 
-    // Hàm format ngày tháng cho đẹp (VD: 11/12/2025)
     const formatDate = (dateString: string) => {
         if (!dateString) return "";
         return new Date(dateString).toLocaleDateString("vi-VN", {
@@ -24,15 +23,13 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <Card
             className="py-4 cursor-pointer hover:scale-[1.02] transition-transform"
             isPressable
-            onPress={() => navigate(`/post/${post.slug}`)} // Dùng slug để chuyển trang chuẩn SEO
+            onPress={() => navigate(`/post/${post.slug}`)} 
         >
             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                {/* 1. SỬA: Lấy tên danh mục (thêm dấu ? đề phòng null) */}
                 <p className="text-tiny uppercase font-bold text-primary">
                     {post.category?.name || "Tin tức"}
                 </p>
 
-                {/* 2. SỬA: Format ngày tháng */}
                 <small className="text-default-500">
                     {formatDate(post.publishedAt)}
                 </small>
@@ -46,9 +43,8 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
                 <Image
                     alt={post.title}
                     className="object-cover rounded-xl w-full h-[200px]"
-                    // Thêm ảnh mặc định nếu post không có thumbnail
                     src={post.thumbnail || "https://via.placeholder.com/300x200?text=No+Image"}
-                    width={300} // HeroUI khuyên dùng số cụ thể cho width để optimize
+                    width={300} 
                 />
                 <p className="mt-2 text-sm text-gray-500 line-clamp-3 text-left">
                     {post.summary}
