@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import DefaultLayout from "@/layouts/default";
 import { PostCard } from "@/components/PostCard";
 import { TopStoryCard } from "@/components/TopStoryCard"; 
 import { SidebarNewsList } from "@/components/SidebarNewsList"; 
@@ -37,14 +36,13 @@ export default function IndexPage() {
     }, []);
 
     if (loading) return <div className="flex justify-center mt-20"><Spinner size="lg" /></div>;
-    if (posts.length === 0) return <DefaultLayout><p className="text-center mt-20">Chưa có bài viết nào.</p></DefaultLayout>;
-
+    if (posts.length === 0) return <div className="text-center mt-20 text-gray-500">Chưa có bài viết nào.</div>;
+ 
     const topStory = posts[0];
     const mainPosts = posts.slice(1, 7);
     const sidebarPosts = posts.slice(7, 15);
 
     return (
-        <DefaultLayout>
             <section className="container mx-auto px-4 py-8">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <div className="lg:col-span-2">
@@ -72,6 +70,5 @@ export default function IndexPage() {
 
                 </div>
             </section>
-        </DefaultLayout>
     );
 }

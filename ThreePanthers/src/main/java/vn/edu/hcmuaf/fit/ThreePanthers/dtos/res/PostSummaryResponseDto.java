@@ -14,7 +14,7 @@ import vn.edu.hcmuaf.fit.ThreePanthers.entities.TagEntity;
 @Setter
 public class PostSummaryResponseDto {
     private String id;
-    private String slug; //them moi
+    private String slug; 
     private String title;
     private String summary;
     private String content;
