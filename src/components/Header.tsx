@@ -11,12 +11,18 @@ const Header = () => {
     { name: "QUỐC TẾ", path: "/quoc-te" },
     { name: "LAO ĐỘNG", path: "/lao-dong" },
     { name: "BẠN ĐỌC", path: "/ban-doc" },
-    { name: "NET ZERO", path: "/net-zero" },
     { name: "KINH TẾ", path: "/kinh-te" },
     { name: "SỨC KHỎE", path: "/suc-khoe" },
     { name: "GIÁO DỤC", path: "/giao-duc" },
     { name: "PHÁP LUẬT", path: "/phap-luat" },
+    { name: "VĂN HÓA - VĂN NGHỆ", path: "/van-hoa-van-nghe" },  
+    { name: "GIẢI TRÍ", path: "/giai-tri" },
     { name: "THỂ THAO", path: "/the-thao" },
+    { name: "AI 365", path: "/ai-365" },
+    { name: "DU LỊCH XANH", path: "/du-lich-xanh" },
+    { name: "PHỤ NỮ", path: "/phu-nu" },
+    { name: "GIA ĐÌNH", path: "/gia-dinh" },
+    { name: "ĐỊA ỐC", path: "/dia-oc" },
   ];
 
   return (
@@ -55,13 +61,17 @@ const Header = () => {
           </div>
         </div>
       </div>
-
+   
       <div className="bg-[#004b9a] text-white w-full border-t border-blue-800">
         <div className="container mx-auto px-4">
-          <ul className="flex items-center flex-wrap">
-            <li className="border-r border-blue-400/50">
-              <Link to="/" className="block px-4 py-3 hover:bg-blue-700 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+          <ul className="flex items-center whitespace-nowrap overflow-hidden">
+            <li className="flex-shrink-0">
+              <Link to="/"
+               className="flex items-center px-2 py-2 hover:bg-blue-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 24 24" 
+                fill="currentColor" 
+                className="w-7 h-7">
                   <path d="M11.47 3.84a.75.75 0 011.06 0l8.632 8.632a.75.75 0 01-1.06 1.06l-.352-.352V20.25a.75.75 0 01-.75.75h-3.375a.75.75 0 01-.75-.75V14.25H9.125v6a.75.75 0 01-.75.75H5a.75.75 0 01-.75-.75v-7.07l-.352.352a.75.75 0 01-1.06-1.06L11.47 3.84z" />
                 </svg>
               </Link>
@@ -69,20 +79,20 @@ const Header = () => {
 
             {/* Menu */}
             {menuItems.map((item) => (
-              <li key={item.name} className="border-r border-blue-400/50 last:border-none">
-                <Link to={item.path} className="block px-3 py-3 text-sm font-bold hover:bg-blue-700 whitespace-nowrap transition-colors uppercase">
+              <li key={item.name} className="flex-shrink-0">
+                <Link to={item.path} 
+                className="flex items-center px-2 py-2 text-[12px] font-semibold uppercase hover:bg-blue-700 transition-colors">
                   {item.name}
                 </Link>
               </li>
             ))}
-            
-            <li className="ml-auto px-4 cursor-pointer hover:bg-blue-700 py-3">
+           
+            <li className="ml-auto flex items-center justify-center px-2 py-2 cursor-pointer hover:bg-blue-700 flex-shrink-0">
                <span className="text-xl font-bold pb-2">...</span>
             </li>
           </ul>
         </div>
       </div>
-
     </header>
   );
 };
