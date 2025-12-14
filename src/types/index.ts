@@ -93,4 +93,15 @@ export interface PageData<T> {
   items: T[];
 }
 
+export interface LoginRequest {
+  identifier: string;
+  password: string;
+}
+
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  password: string;
+}
+
 export type PaginatedApiResponse<T> = ApiResponse<PageData<T>>;
