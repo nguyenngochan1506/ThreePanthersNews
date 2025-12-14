@@ -155,6 +155,8 @@ public class PostServiceImpl implements PostService {
         dto.setPublishedAt(e.getPublishedAt());
         dto.setViewCount(e.getViewCount());
         dto.setIsFeatured(e.getIsFeatured());
+        dto.setSlug(e.getSlug());
+        dto.setContent(e.getContent());
 
         if (e.getAuthor() != null) {
             dto.setAuthor(e.getAuthor().getUsername());
