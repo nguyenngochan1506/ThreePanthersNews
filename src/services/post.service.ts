@@ -9,6 +9,8 @@ export const postService = {
       filter,
     );
 
+    console.log(response);
+
     return response.data;
   },
 
