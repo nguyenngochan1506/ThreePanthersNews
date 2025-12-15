@@ -104,4 +104,8 @@ export interface RegisterRequest {
   password: string;
 }
 
+export interface VerifyRequest {
+  email: string;
+  verificationCode: string;
+}
 export type PaginatedApiResponse<T> = ApiResponse<PageData<T>>;

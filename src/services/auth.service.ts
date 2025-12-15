@@ -5,6 +5,7 @@ import {
   AuthResponse,
   LoginRequest,
   RegisterRequest,
+  VerifyRequest,
 } from "@/types";
 
 export const authService = {
@@ -19,7 +20,16 @@ export const authService = {
 
   register: async (data: RegisterRequest): Promise<ApiResponse<string>> => {
     const response = await apiClient.post<ApiResponse<string>>(
-      "/api/register",
+      "/auth/register",
+      data,
+    );
+
+    return response.data;
+  },
+
+  verify: async (data: VerifyRequest): Promise<ApiResponse<string>> => {
+    const response = await apiClient.post<ApiResponse<string>>(
+      "/auth/verify",
       data,
     );
 
