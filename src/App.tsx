@@ -1,13 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
-// <<<<<<< Updated upstream
-// import TopBanner from "./components/TopBanner";
-// import Header from "./components/Header";
-// import Footer from "./components/Footer";
-// import AuthPage from "./pages/Auth";
-// =======
 import TopBanner from './components/index/TopBanner';
-import Header from './components/index/Header';
+import Header from './components/detail/Header';
 import Footer from './components/index/Footer';
 import AuthPage from './pages/Auth';
 import { AuthProvider } from './contexts/AuthContext';
@@ -17,7 +11,6 @@ import PostDetailPage from '@/pages/PostDetailPage';
 
 function App() {
   return (
-    // <<<<<<< Updated upstream
     <AuthProvider>
       <div>
         <TopBanner />
@@ -30,16 +23,6 @@ function App() {
         <Footer />
       </div>
     </AuthProvider>
-    //     <div>
-    //       <TopBanner />
-    //       <Header />
-    //       <Routes>
-    //         <Route element={<IndexPage />} path="/" />
-    //         <Route element={<PostDetailPage />} path="/post/:slug" />
-    //       </Routes>
-    //       <Footer />
-    //     </div>
-    // >>>>>>> Stashed changes
   );
 }
 
