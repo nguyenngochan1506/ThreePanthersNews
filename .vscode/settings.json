@@ -2,5 +2,5 @@
   "tailwindCSS.experimental.classRegex": [
     ["([\"'`][^\"'`]*.*?[\"'`])", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ],
-  "java.compile.nullAnalysis.mode": "disabled",
+  "java.compile.nullAnalysis.mode": "disabled"
 }
