@@ -7,7 +7,10 @@ import { authService } from "@/services/auth.service";
 import { LoginRequest } from "@/types";
 import { useAuth } from "@/contexts/AuthContext";
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  onForgotPassword: () => void;
+}
+export const LoginForm: React.FC<LoginFormProps> = ({ onForgotPassword }) => {
   const { setAuthData } = useAuth();
   const navigate = useNavigate();
 
@@ -93,7 +96,12 @@ export const LoginForm = () => {
         }
       />
       <div className="flex justify-center px-1">
-        <Link className="text-[#004b9a]" color="primary" href="#" size="sm">
+        <Link
+          className="text-[#004b9a]"
+          color="primary"
+          size="sm"
+          onPress={onForgotPassword}
+        >
           Quên mật khẩu?
         </Link>
       </div>

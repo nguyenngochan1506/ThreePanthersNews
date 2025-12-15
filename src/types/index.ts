@@ -108,4 +108,13 @@ export interface VerifyRequest {
   email: string;
   verificationCode: string;
 }
+export interface ForgotPasswordRequest {
+  email: string;
+}
+export interface ResetPasswordRequest {
+  email: string;
+  otp: string;
+  newPassword: string;
+  confirmPassword: string;
+}
 export type PaginatedApiResponse<T> = ApiResponse<PageData<T>>;
