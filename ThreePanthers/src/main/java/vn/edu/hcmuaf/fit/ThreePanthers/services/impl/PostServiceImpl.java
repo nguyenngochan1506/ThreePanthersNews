@@ -143,20 +143,16 @@ public class PostServiceImpl implements PostService {
                 predicates.add(cb.or(titleLike, summaryLike));
             }
 
-            // --- LOGIC MỚI: LỌC THEO NGÀY (PUBLISH DATE) ---
+            // (PUBLISH DATE) 
             if (filter.getPublishDate() != null && !filter.getPublishDate().isEmpty()) {
             try {
-                // 1. Tự Parse chuỗi "yyyy-MM-dd" sang LocalDate
                 LocalDate date = LocalDate.parse(filter.getPublishDate());
 
-                // 2. Tính đầu ngày và cuối ngày
                 LocalDateTime startOfDay = date.atStartOfDay();
                 LocalDateTime endOfDay = date.atTime(23, 59, 59, 999999999);
 
-                // 3. So sánh
                 predicates.add(cb.between(root.get("publishedAt"), startOfDay, endOfDay));
                 
-                // Debug để xem nó chạy vào đây chưa
                 System.out.println("Đang lọc ngày: " + date);
                 
             } catch (Exception e) {
