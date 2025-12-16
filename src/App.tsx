@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import TopBanner from './components/index/TopBanner';
-import Header from './components/detail/Header';
+import Header from './components/index/Header';
 import Footer from './components/index/Footer';
 import AuthPage from './pages/Auth';
 import { AuthProvider } from './contexts/AuthContext';
