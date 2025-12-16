@@ -24,7 +24,6 @@ public class PostSummaryResponseDto {
     private Boolean isFeatured;
     private String author;
     private CategoryResponseDto category;
-    private String slug;
     private List<TagResponseDto> tags = new ArrayList<>();
 
 

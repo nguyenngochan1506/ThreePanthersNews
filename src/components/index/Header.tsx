@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@heroui/dropdown";
-import { Avatar, Button } from "@heroui/react";
+} from '@heroui/dropdown';
+import { Avatar, Button } from '@heroui/react';
 import {
   HomeIcon,
   PlayIcon,
@@ -20,17 +20,18 @@ import {
   EnvelopeIcon,
   BuildingOffice2Icon,
   RectangleGroupIcon,
-} from "@heroicons/react/24/outline";
-import { FaFacebookF, FaYoutube, FaRss } from "react-icons/fa";
-import { SiZalo } from "react-icons/si";
-import { useAuth } from "@/contexts/AuthContext";
+} from '@heroicons/react/24/outline';
+import { FaFacebookF, FaYoutube, FaRss } from 'react-icons/fa';
+import { SiZalo } from 'react-icons/si';
+
+import { useAuth } from '@/contexts/AuthContext';
 
 const Header = () => {
-  const today = new Date().toLocaleDateString("vi-VN", {
-    weekday: "long",
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
+  const today = new Date().toLocaleDateString('vi-VN', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
   });
 
   const [showMegaMenu, setShowMegaMenu] = useState(false);
@@ -38,56 +39,152 @@ const Header = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    "THỜI SỰ",
-    "QUỐC TẾ",
-    "LAO ĐỘNG",
-    "BẠN ĐỌC",
-    "NET ZERO",
-    "KINH TẾ",
-    "SỨC KHỎE",
-    "GIÁO DỤC",
-    "PHÁP LUẬT",
-    "VĂN HÓA - VĂN NGHỆ",
-    "GIẢI TRÍ",
-    "THỂ THAO",
-    "AI 365",
-    "PHỤ NỮ",
-    "GIA ĐÌNH",
-    "ĐỊA ỐC",
+    'THỜI SỰ',
+    'QUỐC TẾ',
+    'LAO ĐỘNG',
+    'BẠN ĐỌC',
+    'NET ZERO',
+    'KINH TẾ',
+    'SỨC KHỎE',
+    'GIÁO DỤC',
+    'PHÁP LUẬT',
+    'VĂN HÓA - VĂN NGHỆ',
+    'GIẢI TRÍ',
+    'THỂ THAO',
+    'AI 365',
+    'PHỤ NỮ',
+    'GIA ĐÌNH',
+    'ĐỊA ỐC',
   ];
 
   const primaryMenus = [
-    { title: "Thời sự", items: ["Chính trị", "Xã hội", "Đô thị"] },
-    { title: "Quốc tế", items: ["Người Việt đó đây", "Hay - lạ", "Vấn đề nóng"] },
-    { title: "Lao động", items: ["Công đoàn - Công nhân", "Việc làm", "An sinh xã hội"] },
-    { title: "Bạn đọc", items: ["Cuộc sống nhân ái", "Tôi lên tiếng", "Góc ảnh bạn đọc"] },
-    {title: "Net Zero", items: ["Tin tức & Xu hướng", "Chuyển đổi xanh", "Sống xanh","Cẩm nang"],  },
-    {title: "Kinh tế",items: ["Kinh doanh", "Tiêu dùng", "Ôtô - Xe - Điện máy","Bất động sản","Tài chính-Chứng khoán","Diễn đàn kinh tế"],},
-    {title: "Sức khỏe",items: ["Chuyển động y học", "Giới tính", "Bác sĩ của bạn","Khỏe và đẹp"],},
-    {title: "Giáo dục", items: ["Du học", "tuyển sinh", "Sau bục giảng"],},
-    { title: "Pháp luật", items: ["Luật sư của bạn", "Truy nã", "Chuyện pháp đình"],},
-    { title: "Văn hóa - Văn nghệ",  items: ["Âm nhạc", "Văn học", "Sân khấu","Điện ảnh", "Nghe - Xem – Đọc gì?"], },
-    { title: "Giải trí",items: ["Hậu trường showbiz", "Chuyện của sao"],},
-    {title: "Thể thao",items: ["Bóng đá", "Golf", "Hậu trường","Các môn thể thao khác", "Tennis","Marathon"], },
-    {title: "AI 365", items: ["Công nghệ số", "Bảo mật", "Mạng xã hội","Giải trí cùng AI"],  },
-    {title: "Phụ nữ",items: ["Khỏe-đẹp", "Tâm sự", "Chuyện của sao","Món ngon", "Điểm đến","Tiêu dùng thông minh", "Video","Bản lĩnh sống"], },
-    { title: "Gia đình", items: ["Bí quyết làm đẹp", "Cha mẹ và con cái", "Không gian sống"], },
-    {title: "Địa ốc",items: ["Dự án", "Thị trường", "Nhà đẹp","Doanh nhân","Số hóa","Vật tư","Tài chính"],}, 
-    { title: "Truy vết mạng xã hội", items: [],},
-    { title: "Hỏi nóng đáp nhanh",items: [],},
-    {title: "Đời sống",items: [], },
-    {title: "Khoa học",    items: [],},
-    { title: "Giải mai vàng",  items: [],},
-    {title: "Vùng miền",  items: [],},
-    { title: "Người Việt yêu sử Việt",items: [], },
-    {title: "Dành cho bạn đọc VIP",  items: ["Tiêu điểm quốc tế", "Chuyện thương trường", "Bí quyết cuộc sống", "Hồ sơ", "Độc, lạ đó đây"],}
+    { title: 'Thời sự', items: ['Chính trị', 'Xã hội', 'Đô thị'] },
+    {
+      title: 'Quốc tế',
+      items: ['Người Việt đó đây', 'Hay - lạ', 'Vấn đề nóng'],
+    },
+    {
+      title: 'Lao động',
+      items: ['Công đoàn - Công nhân', 'Việc làm', 'An sinh xã hội'],
+    },
+    {
+      title: 'Bạn đọc',
+      items: ['Cuộc sống nhân ái', 'Tôi lên tiếng', 'Góc ảnh bạn đọc'],
+    },
+    {
+      title: 'Net Zero',
+      items: ['Tin tức & Xu hướng', 'Chuyển đổi xanh', 'Sống xanh', 'Cẩm nang'],
+    },
+    {
+      title: 'Kinh tế',
+      items: [
+        'Kinh doanh',
+        'Tiêu dùng',
+        'Ôtô - Xe - Điện máy',
+        'Bất động sản',
+        'Tài chính-Chứng khoán',
+        'Diễn đàn kinh tế',
+      ],
+    },
+    {
+      title: 'Sức khỏe',
+      items: [
+        'Chuyển động y học',
+        'Giới tính',
+        'Bác sĩ của bạn',
+        'Khỏe và đẹp',
+      ],
+    },
+    { title: 'Giáo dục', items: ['Du học', 'tuyển sinh', 'Sau bục giảng'] },
+    {
+      title: 'Pháp luật',
+      items: ['Luật sư của bạn', 'Truy nã', 'Chuyện pháp đình'],
+    },
+    {
+      title: 'Văn hóa - Văn nghệ',
+      items: [
+        'Âm nhạc',
+        'Văn học',
+        'Sân khấu',
+        'Điện ảnh',
+        'Nghe - Xem – Đọc gì?',
+      ],
+    },
+    { title: 'Giải trí', items: ['Hậu trường showbiz', 'Chuyện của sao'] },
+    {
+      title: 'Thể thao',
+      items: [
+        'Bóng đá',
+        'Golf',
+        'Hậu trường',
+        'Các môn thể thao khác',
+        'Tennis',
+        'Marathon',
+      ],
+    },
+    {
+      title: 'AI 365',
+      items: ['Công nghệ số', 'Bảo mật', 'Mạng xã hội', 'Giải trí cùng AI'],
+    },
+    {
+      title: 'Phụ nữ',
+      items: [
+        'Khỏe-đẹp',
+        'Tâm sự',
+        'Chuyện của sao',
+        'Món ngon',
+        'Điểm đến',
+        'Tiêu dùng thông minh',
+        'Video',
+        'Bản lĩnh sống',
+      ],
+    },
+    {
+      title: 'Gia đình',
+      items: ['Bí quyết làm đẹp', 'Cha mẹ và con cái', 'Không gian sống'],
+    },
+    {
+      title: 'Địa ốc',
+      items: [
+        'Dự án',
+        'Thị trường',
+        'Nhà đẹp',
+        'Doanh nhân',
+        'Số hóa',
+        'Vật tư',
+        'Tài chính',
+      ],
+    },
+    { title: 'Truy vết mạng xã hội', items: [] },
+    { title: 'Hỏi nóng đáp nhanh', items: [] },
+    { title: 'Đời sống', items: [] },
+    { title: 'Khoa học', items: [] },
+    { title: 'Giải mai vàng', items: [] },
+    { title: 'Vùng miền', items: [] },
+    { title: 'Người Việt yêu sử Việt', items: [] },
+    {
+      title: 'Dành cho bạn đọc VIP',
+      items: [
+        'Tiêu điểm quốc tế',
+        'Chuyện thương trường',
+        'Bí quyết cuộc sống',
+        'Hồ sơ',
+        'Độc, lạ đó đây',
+      ],
+    },
   ];
 
   const featureLinks = [
-    { label: "Video", icon: <PlayIcon className="w-5 h-5 text-blue-600" /> },
-    { label: "Photo", icon: <PhotoIcon className="w-5 h-5 text-blue-600" /> },
-    { label: "Longform", icon: <DocumentTextIcon className="w-5 h-5 text-blue-600" /> },
-    { label: "Infographic", icon: <ChartBarIcon className="w-5 h-5 text-blue-600" /> },
+    { label: 'Video', icon: <PlayIcon className="w-5 h-5 text-blue-600" /> },
+    { label: 'Photo', icon: <PhotoIcon className="w-5 h-5 text-blue-600" /> },
+    {
+      label: 'Longform',
+      icon: <DocumentTextIcon className="w-5 h-5 text-blue-600" />,
+    },
+    {
+      label: 'Infographic',
+      icon: <ChartBarIcon className="w-5 h-5 text-blue-600" />,
+    },
   ];
 
   return (
@@ -96,7 +193,10 @@ const Header = () => {
         <div className="bg-white border-b">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <Link to="/" className="text-[#d80f1e] font-black text-4xl uppercase">
+              <Link
+                className="text-[#d80f1e] font-black text-4xl uppercase"
+                to="/"
+              >
                 NGƯỜI LAO ĐỘNG
               </Link>
               <div className="hidden lg:flex flex-col border-l pl-4">
@@ -118,11 +218,11 @@ const Header = () => {
                     <Avatar
                       isBordered
                       as="button"
-                      size="sm"
-                      name={user?.username}
                       classNames={{
-                        base: "bg-[#004b9a] text-white ring-[#004b9a]",
+                        base: 'bg-[#004b9a] text-white ring-[#004b9a]',
                       }}
+                      name={user?.username}
+                      size="sm"
                     />
                   </DropdownTrigger>
                   <DropdownMenu>
@@ -133,9 +233,9 @@ const Header = () => {
                 </Dropdown>
               ) : (
                 <Button
-                  radius="full"
                   className="bg-[#004b9a] text-white font-bold"
-                  onPress={() => navigate("/auth")}
+                  radius="full"
+                  onPress={() => navigate('/auth')}
                 >
                   Đăng nhập
                 </Button>
@@ -148,7 +248,10 @@ const Header = () => {
           <div className="container mx-auto px-4">
             <ul className="flex items-center whitespace-nowrap overflow-hidden">
               <li>
-                <Link to="/" className="flex items-center px-2 py-2 hover:bg-blue-700">
+                <Link
+                  className="flex items-center px-2 py-2 hover:bg-blue-700"
+                  to="/"
+                >
                   <HomeIcon className="w-6 h-6" />
                 </Link>
               </li>
@@ -161,8 +264,8 @@ const Header = () => {
               ))}
               <li className="ml-auto">
                 <button
-                  onClick={() => setShowMegaMenu((v) => !v)}
                   className="px-3 py-2 text-xl font-bold hover:bg-blue-700"
+                  onClick={() => setShowMegaMenu((v) => !v)}
                 >
                   …
                 </button>
