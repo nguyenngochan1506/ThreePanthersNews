@@ -119,8 +119,7 @@ export interface ResetPasswordRequest {
 }
 export type PaginatedApiResponse<T> = ApiResponse<PageData<T>>;
 
-// Thêm vào cuối file types/index.ts
 export interface CommentRequest {
   content: string;
-  parentId?: string; // Dùng khi trả lời bình luận (Reply)
+  parentId?: string;
 }
