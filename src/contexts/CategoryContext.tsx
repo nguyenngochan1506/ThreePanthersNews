@@ -9,7 +9,7 @@ export const CategoryProvider = ({ children }: { children: React.ReactNode }) =>
 
   useEffect(() => {
     categoryService.getAll().then(res => {
-      setCategories(res.data);
+      setCategories(res.data.data);
     });
   }, []);
 

@@ -16,7 +16,6 @@ const PLACEHOLDER = "https://via.placeholder.com/600x400?text=News";
 export default function CategoryPage() {
   const { categorySlug } = useParams<{ categorySlug: string }>();
   const categories = useCategories();
-
   const category = categories.find(c => c.slug === categorySlug);
 
   const [posts, setPosts] = useState<Post[]>([]);
@@ -28,16 +27,16 @@ export default function CategoryPage() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
+
         const filter: PostFilter = {
-          pageNo: 0,
+          pageNo: 1,
           pageSize: 20,
           categoriesSlug: [categorySlug],
         };
 
         const res = await postService.getPosts(filter);
-        setPosts(res?.data?.items || []);
-      } catch (err) {
-        console.error("Fetch posts error:", err);
+        setPosts(res.data.items || []);
+      } catch {
         setPosts([]);
       } finally {
         setLoading(false);
@@ -56,108 +55,74 @@ export default function CategoryPage() {
     );
   }
 
-  const firstPost = posts.length > 0 ? posts[0] : null;
+  const firstPost = posts[0];
 
   return (
-    <section className="container mx-auto px-4 py-8 max-w-7xl font-sans">
-      {/* ===== HEADER CATEGORY (CHỈ TITLE) ===== */}
-      <div className="border-b-2 border-gray-100 pb-4 mb-8">
-        <h1 className="text-4xl font-bold text-[#333] font-serif">
-          {category.name}
-        </h1>
+    <section className="container mx-auto px-4 py-8 max-w-7xl">
+      <div className="border-b pb-4 mb-8">
+        <h1 className="text-4xl font-bold">{category.name}</h1>
       </div>
 
-      {/* ===== CONTENT ===== */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* ===== LEFT COLUMN ===== */}
         <div className="lg:col-span-2">
           {posts.length > 0 ? (
             <div className="flex flex-col gap-8">
               {posts.map(post => (
-                <article
-                  key={post.id}
-                  className="group flex flex-col sm:flex-row gap-6 border-b border-gray-100 pb-8 last:border-0"
-                >
+                <article key={post.id} className="flex gap-6 border-b pb-8">
                   <Link
-                    className="sm:w-1/3 shrink-0 overflow-hidden rounded-lg aspect-video block"
                     to={`/post/${post.slug}`}
+                    className="w-1/3 overflow-hidden rounded-lg aspect-video"
                   >
                     <img
-                      alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       src={post.thumbnail || PLACEHOLDER}
+                      className="w-full h-full object-cover"
                     />
                   </Link>
 
                   <div className="flex flex-col justify-between">
-                    <div>
-                      <Link to={`/post/${post.slug}`}>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#d80f1e] leading-snug transition-colors">
-                          {post.title}
-                        </h3>
-                      </Link>
-                      <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed mb-3">
-                        {post.summary}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-4 text-xs text-gray-400 mt-auto">
-                      <span className="flex items-center gap-1">
-                        <Clock size={12} />
-                        {new Date(post.publishedAt).toLocaleDateString("vi-VN")}
-                      </span>
-                    </div>
+                    <Link to={`/post/${post.slug}`}>
+                      <h3 className="text-xl font-bold mb-2">
+                        {post.title}
+                      </h3>
+                    </Link>
+                    <p className="text-sm text-gray-600 line-clamp-3">
+                      {post.summary}
+                    </p>
+                    <span className="flex items-center gap-1 text-xs text-gray-400 mt-2">
+                      <Clock size={12} />
+                      {new Date(post.publishedAt).toLocaleDateString("vi-VN")}
+                    </span>
                   </div>
                 </article>
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-gray-50 rounded text-gray-500">
-              Chưa có bài viết nào trong chuyên mục này.
+            <div className="text-center py-20 text-gray-500">
+              Chưa có bài viết
             </div>
           )}
         </div>
 
-        {/* ===== RIGHT SIDEBAR ===== */}
         <div className="lg:col-span-1">
-          <div className="mb-8 sticky top-4">
-            <div className="mb-8">
-              <img
-                alt="QC"
-                className="w-full mx-auto rounded"
-                src="https://adi.admicro.vn/adt/wd/2023/10/banner-300x600.jpg"
-              />
+          {posts.length > 0 && (
+            <div className="bg-gray-50 p-4 rounded">
+              <h3 className="font-bold mb-4">XEM NHIỀU NHẤT</h3>
+              <ul className="space-y-3">
+                {posts.slice(0, 5).map(p => (
+                  <li key={p.id}>
+                    <Link to={`/post/${p.slug}`} className="text-sm">
+                      {p.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {posts.length > 0 && (
-              <div className="bg-gray-50 p-4 rounded border border-gray-200">
-                <h3 className="text-lg font-bold text-[#d80f1e] mb-4 border-b border-gray-300 pb-2">
-                  XEM NHIỀU NHẤT
-                </h3>
-                <ul className="space-y-4">
-                  {posts.slice(0, 5).map(p => (
-                    <li
-                      key={p.id}
-                      className="border-b border-gray-100 last:border-0 pb-2 last:pb-0"
-                    >
-                      <Link
-                        to={`/post/${p.slug}`}
-                        className="text-sm font-semibold text-gray-800 hover:text-blue-600 leading-snug block"
-                      >
-                        {p.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
+          )}
         </div>
       </div>
 
-      {/* ===== RELATED ===== */}
       {firstPost && (
-        <div className="mt-12 pt-8">
+        <div className="mt-12">
           <RelatedPosts
             categoryId={firstPost.category}
             currentPostId={firstPost.id}
