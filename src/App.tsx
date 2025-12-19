@@ -9,6 +9,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import IndexPage from '@/pages/index';
 import PostDetailPage from '@/pages/PostDetailPage';
 import TagPage from '@/pages/TagPage';
+import SearchPage from '@/pages/SearchPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route element={<IndexPage />} path="/" />
           <Route element={<AuthPage />} path="/auth" />
+          <Route element={<SearchPage />} path="/search" />
           <Route element={<PostDetailPage />} path="/post/:slug" />
           <Route element={<TagPage />} path="/tag/:slug" />
         </Routes>
