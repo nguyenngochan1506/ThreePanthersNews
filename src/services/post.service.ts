@@ -1,7 +1,3 @@
-import apiClient from './axios.client';
-
-import { ApiResponse, PageData, Post, PostDetail, PostFilter } from '@/types';
-
 import apiClient from "./axios.client";
 import { ApiResponse, PageData, Post, PostDetail, PostFilter } from "@/types";
 
@@ -10,10 +6,9 @@ export const postService = {
     filter: PostFilter
   ): Promise<ApiResponse<PageData<Post>>> => {
     const response = await apiClient.post<ApiResponse<PageData<Post>>>(
-      '/posts',
+      "/api/posts",
       filter
     );
-
     return response.data;
   },
 
@@ -21,8 +16,7 @@ export const postService = {
     slug: string
   ): Promise<ApiResponse<PostDetail>> => {
     const response = await apiClient.get<ApiResponse<PostDetail>>(
-      `/posts/${slug}`
-
+      `/api/posts/${slug}`
     );
     return response.data;
   },
