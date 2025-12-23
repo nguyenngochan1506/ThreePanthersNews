@@ -10,7 +10,7 @@ import PostDetailPage from './pages/PostDetailPage';
 import SavedPostsPage from './pages/SavedPostsPage';
 import { CategoryProvider } from './contexts/CategoryContext';
 
-import HistoryPage from '@/pages/HistoryPage'; // Import trang vừa tạo
+import HistoryPage from '@/pages/HistoryPage'; 
 import TagPage from '@/pages/TagPage';
 import SearchPage from '@/pages/SearchPage';
 import CategoryPage from '@/pages/CategoryPage';
@@ -23,6 +23,7 @@ function App() {
         <Header />
 
         <Routes>
+
           <Route element={<IndexPage />} path="/" />
           <Route element={<PostDetailPage />} path="/post/:slug" />
           <Route element={<CategoryPage />} path="/:categorySlug" />
