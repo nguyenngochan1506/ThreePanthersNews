@@ -5,9 +5,9 @@ import Header from './components/index/Header';
 import Footer from './components/index/Footer';
 import AuthPage from './pages/Auth';
 import { AuthProvider } from './contexts/AuthContext';
+import IndexPage from './pages/index';
+import PostDetailPage from './pages/PostDetailPage';
 
-import IndexPage from '@/pages/index';
-import PostDetailPage from '@/pages/PostDetailPage';
 import TagPage from '@/pages/TagPage';
 import SearchPage from '@/pages/SearchPage';
 
