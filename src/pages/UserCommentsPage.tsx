@@ -4,19 +4,16 @@ import { Spinner } from '@heroui/react';
 import { MessageSquare, ArrowRight } from 'lucide-react';
 
 import { userService } from '@/services/user.service';
-// Hoặc import { commentService } from "@/services/comment.service"; tùy cái nào Han đang dùng
 
-// 1. Khai báo Interface "bao sân" (cái gì cũng nhận)
 interface AnyComment {
   id: number | string;
   content: string;
   createdAt?: string;
-  createdDate?: string; // Phòng trường hợp backend đặt tên khác
+  createdDate?: string;
 
-  // Các trường có thể chứa thông tin bài viết
   postSlug?: string;
   postTitle?: string;
-  post_slug?: string; // Phòng trường hợp đặt tên kiểu snake_case
+  post_slug?: string;
   post_title?: string;
   post?: {
     slug?: string;
