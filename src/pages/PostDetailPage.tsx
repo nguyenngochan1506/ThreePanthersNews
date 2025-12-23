@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Spinner } from '@heroui/react';
-import { Tag as TagIcon } from 'lucide-react';
+import { Bookmark, BookmarkCheck, Tag as TagIcon } from 'lucide-react';
 
 import { postService } from '@/services/post.service';
 import { PostDetail } from '@/types';
@@ -9,11 +9,15 @@ import { RelatedPosts } from '@/components/detail/RelatedPosts';
 import { CategoryNews } from '@/components/detail/CategoryNews';
 import { CommentSection } from '@/components/detail/CommentSection';
 import { ReadMoreNews } from '@/components/detail/ReadMoreNews';
+import { useAuth } from '@/contexts/AuthContext';
+import { userService } from '@/services/user.service';
 
 export default function PostDetailPage() {
   const { slug } = useParams();
   const [post, setPost] = useState<PostDetail | null>(null);
+  const { isLoggedIn } = useAuth();
   const [loading, setLoading] = useState(true);
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const fetchPostDetail = async () => {
@@ -23,7 +27,17 @@ export default function PostDetailPage() {
         const response = await postService.getPostDetail(slug);
 
         if (response && response.data) {
-          setPost(response.data);
+          const currentPost = response.data;
+
+          setPost(currentPost);
+          if (isLoggedIn) {
+            const saveRes = await userService.getSavedPosts();
+            const alreadySaved = saveRes.data.some(
+              (p) => p.id == currentPost.id
+            );
+
+            setIsSaved(alreadySaved);
+          }
         }
       } catch (error) {
         console.error('Lỗi tải bài viết:', error);
@@ -34,7 +48,21 @@ export default function PostDetailPage() {
 
     fetchPostDetail();
     window.scrollTo(0, 0);
-  }, [slug]);
+  }, [slug, isLoggedIn]);
+
+  const handleToggleSave = async () => {
+    if (!isLoggedIn) {
+      alert('Vui lòng đăng nhập để sử dụng chức năng này');
+
+      return;
+    }
+    try {
+      await userService.toggleSavePost(slug!);
+      setIsSaved(!isSaved);
+    } catch (error) {
+      alert('Có lỗi xảy ra khi lưu bài viết!');
+    }
+  };
 
   if (loading)
     return (
@@ -59,9 +87,27 @@ export default function PostDetailPage() {
             <span className="text-[#d80f1e] font-bold uppercase text-sm">
               {post.category?.name || 'Tin tức'}
             </span>
-            <span className="text-gray-500 text-xs">
-              {new Date(post.publishedAt).toLocaleDateString('vi-VN')}
-            </span>
+            <div className="flex items-center gap-4">
+              <button
+                className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"
+                onClick={handleToggleSave}
+              >
+                {isSaved ? (
+                  <BookmarkCheck
+                    className="text-blue-600 fill-blue-600"
+                    size={24}
+                  />
+                ) : (
+                  <Bookmark size={24} />
+                )}
+                <span className="text-sm font-medium">
+                  {isSaved ? 'Đã lưu' : 'Lưu bài'}
+                </span>
+              </button>
+              <span className="text-gray-500 text-xs">
+                {new Date(post.publishedAt).toLocaleDateString('vi-VN')}
+              </span>
+            </div>
           </div>
 
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4">

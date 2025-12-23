@@ -5,6 +5,7 @@ import Header from './components/index/Header';
 import Footer from './components/index/Footer';
 import AuthPage from './pages/Auth';
 import { AuthProvider } from './contexts/AuthContext';
+import SavedPostsPage from './pages/SavedPostsPage';
 
 import IndexPage from '@/pages/index';
 import PostDetailPage from '@/pages/PostDetailPage';
@@ -23,6 +24,7 @@ function App() {
           <Route element={<SearchPage />} path="/search" />
           <Route element={<PostDetailPage />} path="/post/:slug" />
           <Route element={<TagPage />} path="/tag/:slug" />
+          <Route element={<SavedPostsPage />} path="/saved-posts" />
         </Routes>
         <Footer />
       </div>
