@@ -20,10 +20,9 @@ import {
   EnvelopeIcon,
   BuildingOffice2Icon,
   RectangleGroupIcon,
-} from "@heroicons/react/24/outline";
-import { FaFacebookF, FaYoutube, FaRss } from "react-icons/fa";
-import { SiZalo } from "react-icons/si";
-
+} from '@heroicons/react/24/outline';
+import { FaFacebookF, FaYoutube, FaRss } from 'react-icons/fa';
+import { SiZalo } from 'react-icons/si';
 
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -45,7 +44,6 @@ const Header = () => {
   });
 
   const [showMegaMenu, setShowMegaMenu] = useState(false);
-
 
   /* -------- main menu (top blue bar) -------- */
   const [searchTerm, setSearchTerm] = useState('');
@@ -161,7 +159,6 @@ const Header = () => {
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-6">
               <Link
-
                 className="text-[#d80f1e] font-black text-4xl uppercase"
                 to="/"
               >
@@ -188,14 +185,11 @@ const Header = () => {
                     <Avatar
                       isBordered
                       as="button"
+                      classNames={{
+                        base: 'bg-[#004b9a] text-white ring-[#004b9a]',
+                      }}
                       name={user?.username}
                       size="sm"
-                      classNames={{
-                        base: "bg-[#004b9a] text-white ring-[#004b9a]",
-                      }}
-                    />
-                  </DropdownTrigger>
-                  <DropdownMenu>
                     />
                   </DropdownTrigger>
                   <DropdownMenu>
@@ -210,6 +204,12 @@ const Header = () => {
                       onPress={() => navigate('/history')}
                     >
                       Tin đã xem
+                    </DropdownItem>
+                    <DropdownItem
+                      key="opinions"
+                      onPress={() => navigate('/my-comments')}
+                    >
+                      Ý kiến của bạn
                     </DropdownItem>
                     <DropdownItem key="logout" color="danger" onPress={logout}>
                       Đăng xuất
@@ -289,11 +289,9 @@ const Header = () => {
                       {group.items.map((item) => (
                         <li key={item}>
                           <Link
-                            className="text-sm text-gray-700 hover:text-blue-600"
+                            className="block px-2 py-1 rounded text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600"
                             to={`/${parentSlug}/${slugify(item)}`}
                             onClick={() => setShowMegaMenu(false)}
-                            className="block px-2 py-1 rounded text-sm text-gray-700 hover:bg-gray-50 hover:text-blue-600"
-
                           >
                             {item}
                           </Link>
@@ -313,17 +311,15 @@ const Header = () => {
 
               <div className="grid gap-3">
                 {featureLinks.map((item) => (
-                  <div
+                  <Link
                     key={item.label}
-                    onClick={() => {
-                      navigate(`/${item.label.toLowerCase()}`);
-                      setShowMegaMenu(false);
-                    }}
-                    className="flex items-center gap-3 border rounded-lg px-4 py-3 hover:bg-gray-50 cursor-pointer"
+                    className="flex items-center gap-3 border rounded-lg px-4 py-3 hover:bg-gray-50 cursor-pointer text-gray-800" // Thêm text color để đảm bảo đồng bộ
+                    to={`/${item.label.toLowerCase()}`}
+                    onClick={() => setShowMegaMenu(false)}
                   >
                     {item.icon}
                     <span className="font-medium">{item.label}</span>
-                  </div>
+                  </Link>
                 ))}
               </div>
 
@@ -331,22 +327,38 @@ const Header = () => {
 
               <ul className="space-y-3 text-sm text-gray-700">
                 <li>
-                  <Link to="/ly-tuong-song" onClick={() => setShowMegaMenu(false)} className="flex items-center gap-3 hover:text-blue-600">
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/ly-tuong-song"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <LightBulbIcon className="w-5 h-5" /> Lý tưởng sống
                   </Link>
                 </li>
                 <li>
-                  <Link to="/noi-thang" onClick={() => setShowMegaMenu(false)} className="flex items-center gap-3 hover:text-blue-600">
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/noi-thang"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <MegaphoneIcon className="w-5 h-5" /> Nói thẳng
                   </Link>
                 </li>
                 <li>
-                  <Link to="/tin-doc-quyen" onClick={() => setShowMegaMenu(false)} className="flex items-center gap-3 hover:text-blue-600">
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/tin-doc-quyen"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <StarIcon className="w-5 h-5" /> Tin độc quyền
                   </Link>
                 </li>
                 <li>
-                  <Link to="/thi-truong" onClick={() => setShowMegaMenu(false)} className="flex items-center gap-3 hover:text-blue-600">
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/thi-truong"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <GlobeAltIcon className="w-5 h-5" /> Thị trường
                   </Link>
                 </li>
@@ -364,17 +376,34 @@ const Header = () => {
               <hr className="my-6" />
 
               <div className="flex items-center gap-4">
-                <a href="https://www.facebook.com/nguoilaodong" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white">
+                <a
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white"
+                  href="https://www.facebook.com/nguoilaodong"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <FaFacebookF />
                 </a>
-                <a href="https://www.youtube.com/@nguoilaodong" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-red-600 hover:text-white">
+                <a
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-red-600 hover:text-white"
+                  href="https://www.youtube.com/@nguoilaodong"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <FaYoutube />
                 </a>
-                <a href="https://zalo.me" target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white">
-
+                <a
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white"
+                  href="https://zalo.me"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
                   <SiZalo />
                 </a>
-                <a href="/rss" className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-orange-500 hover:text-white">
+                <a
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-orange-500 hover:text-white"
+                  href="/rss"
+                >
                   <FaRss />
                 </a>
               </div>
