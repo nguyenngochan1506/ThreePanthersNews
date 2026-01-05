@@ -46,8 +46,6 @@ public class AuthService {
 
         String code = String.valueOf(new Random().nextInt(900000) + 100000);
 
-        System.out.println("🔥🔥🔥 MÃ XÁC THỰC CỦA TUI (REGISTER): " + code);
-
         user.setVerificationCode(code);
         user.setVerificationExpiration(LocalDateTime.now().plusMinutes(15)); 
 
