@@ -206,7 +206,7 @@ export default function PostDetailPage() {
                   TIN LIÊN QUAN
                 </h3>
                 <ul className="space-y-4">
-                  {post.relatedPosts.map((related) => (
+                  {post.relatedPosts.slice(0, 10).map((related) => (
                     <li
                       key={related.id}
                       className="group border-b border-gray-100 last:border-0 pb-2 last:pb-0"
