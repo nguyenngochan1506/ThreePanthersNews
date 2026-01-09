@@ -229,12 +229,10 @@ export const MainNav = () => {
   const location = useLocation();
   const megaMenuRef = useRef<HTMLDivElement | null>(null);
 
-  // ✅ đổi trang là đóng menu
   useEffect(() => {
     setShowMegaMenu(false);
   }, [location.pathname]);
 
-  // ✅ click ra ngoài là đóng menu
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!showMegaMenu) return;
