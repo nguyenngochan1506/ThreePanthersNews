@@ -26,7 +26,6 @@ import { SiZalo } from 'react-icons/si';
 
 import { useAuth } from '@/contexts/AuthContext';
 
-
 const slugify = (text: string) =>
   text
     .toLowerCase()
@@ -35,7 +34,6 @@ const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")         
     .replace(/-+/g, "-")                  
     .replace(/^-|-$/g, "");               
-
 
 const menuItems = [
   { label: 'THỜI SỰ', slug: 'thoi-su' },
@@ -59,9 +57,18 @@ const menuItems = [
 const primaryMenus = [
   { title: 'Thời sự', items: ['Chính trị', 'Xã hội', 'Đô thị'] },
   { title: 'Quốc tế', items: ['Người Việt đó đây', 'Hay - lạ', 'Vấn đề nóng'] },
-  { title: 'Lao động', items: ['Công đoàn - Công nhân', 'Việc làm', 'An sinh xã hội'] },
-  { title: 'Bạn đọc', items: ['Cuộc sống nhân ái', 'Tôi lên tiếng', 'Góc ảnh bạn đọc'] },
-  { title: 'Net Zero', items: ['Tin tức & Xu hướng', 'Chuyển đổi xanh', 'Sống xanh', 'Cẩm nang'] },
+  {
+    title: 'Lao động',
+    items: ['Công đoàn - Công nhân', 'Việc làm', 'An sinh xã hội'],
+  },
+  {
+    title: 'Bạn đọc',
+    items: ['Cuộc sống nhân ái', 'Tôi lên tiếng', 'Góc ảnh bạn đọc'],
+  },
+  {
+    title: 'Net Zero',
+    items: ['Tin tức & Xu hướng', 'Chuyển đổi xanh', 'Sống xanh', 'Cẩm nang'],
+  },
   {
     title: 'Kinh tế',
     items: [
@@ -72,10 +79,19 @@ const primaryMenus = [
       'Tài chính-Chứng khoán',
     ],
   },
-  { title: 'Sức khỏe', items: ['Chuyển động y học', 'Giới tính', 'Bác sĩ của bạn', 'Khỏe và đẹp'] },
+  {
+    title: 'Sức khỏe',
+    items: ['Chuyển động y học', 'Giới tính', 'Bác sĩ của bạn', 'Khỏe và đẹp'],
+  },
   { title: 'Giáo dục', items: ['Du học', 'Tuyển sinh', 'Sau bục giảng'] },
-  { title: 'Pháp luật', items: ['Luật sư của bạn', 'Truy nã', 'Chuyện pháp đình'] },
-  { title: 'Văn hóa - Văn nghệ', items: ['Âm nhạc', 'Văn học', 'Sân khấu', 'Điện ảnh'] },
+  {
+    title: 'Pháp luật',
+    items: ['Luật sư của bạn', 'Truy nã', 'Chuyện pháp đình'],
+  },
+  {
+    title: 'Văn hóa - Văn nghệ',
+    items: ['Âm nhạc', 'Văn học', 'Sân khấu', 'Điện ảnh'],
+  },
   { title: 'Giải trí', items: ['Hậu trường showbiz', 'Chuyện của sao'] },
   { title: 'Thể thao', items: ['Bóng đá', 'Golf', 'Tennis', 'Marathon'] },
   { title: 'AI 365', items: ['Công nghệ số', 'Bảo mật', 'Mạng xã hội'] },
@@ -87,10 +103,15 @@ const primaryMenus = [
 const featureLinks = [
   { label: 'Video', icon: <PlayIcon className="w-5 h-5 text-blue-600" /> },
   { label: 'Photo', icon: <PhotoIcon className="w-5 h-5 text-blue-600" /> },
-  { label: 'Longform', icon: <DocumentTextIcon className="w-5 h-5 text-blue-600" /> },
-  { label: 'Infographic', icon: <ChartBarIcon className="w-5 h-5 text-blue-600" /> },
+  {
+    label: 'Longform',
+    icon: <DocumentTextIcon className="w-5 h-5 text-blue-600" />,
+  },
+  {
+    label: 'Infographic',
+    icon: <ChartBarIcon className="w-5 h-5 text-blue-600" />,
+  },
 ];
-
 
 export const HeaderTop = () => {
   const today = new Date().toLocaleDateString('vi-VN', {
@@ -119,12 +140,17 @@ export const HeaderTop = () => {
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <Link className="text-[#d80f1e] font-black text-4xl uppercase" to="/">
+            <Link
+              className="text-[#d80f1e] font-black text-4xl uppercase"
+              to="/"
+            >
               NGƯỜI LAO ĐỘNG
             </Link>
 
             <div className="hidden lg:flex flex-col border-l pl-4">
-              <span className="text-xs font-bold text-blue-800">NGƯỜI LAO ĐỘNG News</span>
+              <span className="text-xs font-bold text-blue-800">
+                NGƯỜI LAO ĐỘNG News
+              </span>
               <span className="text-sm text-gray-500">{today}</span>
             </div>
           </div>
@@ -144,19 +170,36 @@ export const HeaderTop = () => {
                   <Avatar
                     isBordered
                     as="button"
-                    classNames={{ base: 'bg-[#004b9a] text-white ring-[#004b9a]' }}
+                    classNames={{
+                      base: 'bg-[#004b9a] text-white ring-[#004b9a]',
+                    }}
                     name={user?.username}
                     size="sm"
                   />
                 </DropdownTrigger>
                 <DropdownMenu>
-                  <DropdownItem key="saved" onPress={() => navigate('/saved-posts')}>
+                  <DropdownItem
+                    key="profile"
+                    onPress={() => navigate('/profile')}
+                  >
+                    Thông tin tài khoản
+                  </DropdownItem>
+                  <DropdownItem
+                    key="saved"
+                    onPress={() => navigate('/saved-posts')}
+                  >
                     Tủ sách của tôi
                   </DropdownItem>
-                  <DropdownItem key="history" onPress={() => navigate('/history')}>
+                  <DropdownItem
+                    key="history"
+                    onPress={() => navigate('/history')}
+                  >
                     Tin đã xem
                   </DropdownItem>
-                  <DropdownItem key="opinions" onPress={() => navigate('/my-comments')}>
+                  <DropdownItem
+                    key="opinions"
+                    onPress={() => navigate('/my-comments')}
+                  >
                     Ý kiến của bạn
                   </DropdownItem>
                   <DropdownItem key="logout" color="danger" onPress={logout}>
@@ -212,7 +255,10 @@ export const MainNav = () => {
         <div className="container mx-auto px-4">
           <ul className="flex items-center whitespace-nowrap overflow-hidden">
             <li>
-              <Link className="flex items-center px-2 py-2 hover:bg-blue-700" to="/">
+              <Link
+                className="flex items-center px-2 py-2 hover:bg-blue-700"
+                to="/"
+              >
                 <HomeIcon className="w-6 h-6" />
               </Link>
             </li>
@@ -252,7 +298,10 @@ export const MainNav = () => {
                 return (
                   <div key={group.title}>
                     <h4 className="mb-3 font-semibold text-blue-800 uppercase text-sm">
-                      <Link to={`/${parentSlug}`} onClick={() => setShowMegaMenu(false)}>
+                      <Link
+                        to={`/${parentSlug}`}
+                        onClick={() => setShowMegaMenu(false)}
+                      >
                         {group.title}
                       </Link>
                     </h4>
@@ -276,7 +325,9 @@ export const MainNav = () => {
             </div>
 
             <div className="border-l pl-6">
-              <h4 className="mb-4 font-semibold text-blue-800 uppercase text-sm">Định dạng</h4>
+              <h4 className="mb-4 font-semibold text-blue-800 uppercase text-sm">
+                Định dạng
+              </h4>
 
               <div className="grid gap-3">
                 {featureLinks.map((item) => (
@@ -373,8 +424,11 @@ export const MainNav = () => {
                 </a>
 
                 <a
+                 
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-orange-500 hover:text-white"
+                 
                   href="/rss"
+                
                 >
                   <FaRss />
                 </a>
