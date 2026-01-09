@@ -13,7 +13,7 @@ import {
 export const authService = {
   login: async (data: LoginRequest): Promise<ApiResponse<AuthResponse>> => {
     const response = await apiClient.post<ApiResponse<AuthResponse>>(
-      "/auth/login",
+      "/api/auth/login",
       data,
     );
 
@@ -22,7 +22,7 @@ export const authService = {
 
   register: async (data: RegisterRequest): Promise<ApiResponse<string>> => {
     const response = await apiClient.post<ApiResponse<string>>(
-      "/auth/register",
+      "/api/auth/register",
       data,
     );
 
@@ -31,7 +31,7 @@ export const authService = {
 
   verify: async (data: VerifyRequest): Promise<ApiResponse<string>> => {
     const response = await apiClient.post<ApiResponse<string>>(
-      "/auth/verify",
+      "/api/auth/verify",
       data,
     );
 
@@ -42,7 +42,7 @@ export const authService = {
     data: ForgotPasswordRequest,
   ): Promise<ApiResponse<string>> => {
     const response = await apiClient.post<ApiResponse<string>>(
-      "/auth/forgot-password",
+      "/api/auth/forgot-password",
       data,
     );
 
@@ -53,7 +53,7 @@ export const authService = {
     data: ResetPasswordRequest,
   ): Promise<ApiResponse<string>> => {
     const response = await apiClient.post<ApiResponse<string>>(
-      "/auth/reset-password",
+      "/api/auth/reset-password",
       data,
     );
 
