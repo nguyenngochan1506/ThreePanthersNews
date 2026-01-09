@@ -4,7 +4,6 @@ import { HeaderTop, MainNav } from './components/index/Header';
 import TopBanner from './components/index/TopBanner';
 import Footer from './components/index/Footer';
 import TopUtilityBar from './components/index/TopUtilityBar';
-
 import AuthPage from './pages/Auth';
 import IndexPage from './pages/index';
 import PostDetailPage from './pages/PostDetailPage';
@@ -14,9 +13,9 @@ import UserCommentsPage from './pages/UserCommentsPage';
 import TagPage from './pages/TagPage';
 import SearchPage from './pages/SearchPage';
 import CategoryPage from './pages/CategoryPage';
-
 import { AuthProvider } from './contexts/AuthContext';
 import { CategoryProvider } from './contexts/CategoryContext';
+import ProfilePage from './pages/ProfilePage';
 
 function AppLayout() {
   const location = useLocation();
@@ -26,24 +25,27 @@ function AppLayout() {
   return (
     <>
       {showTopBanner && (
-        <TopBanner imageSrc="ads/top-banner.jpg" href="https://avacenter.vn/?utm_source=admicro&utm_medium=topbpc&utm_campaign=avancenter-branding&utm_term=cpma&utm_content=phase1" />
+        <TopBanner
+          href="https://avacenter.vn/?utm_source=admicro&utm_medium=topbpc&utm_campaign=avancenter-branding&utm_term=cpma&utm_content=phase1"
+          imageSrc="ads/top-banner.jpg"
+        />
       )}
       {showTopBanner && <TopUtilityBar />}
-
 
       <HeaderTop />
       <MainNav />
 
       <Routes>
-        <Route path="/" element={<IndexPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/post/:slug" element={<PostDetailPage />} />
-        <Route path="/tag/:slug" element={<TagPage />} />
-        <Route path="/saved-posts" element={<SavedPostsPage />} />
-        <Route path="/history" element={<HistoryPage />} />
-        <Route path="/my-comments" element={<UserCommentsPage />} />
-        <Route path="/:categorySlug" element={<CategoryPage />} />
+        <Route element={<IndexPage />} path="/" />
+        <Route element={<AuthPage />} path="/auth" />
+        <Route element={<SearchPage />} path="/search" />
+        <Route element={<PostDetailPage />} path="/post/:slug" />
+        <Route element={<TagPage />} path="/tag/:slug" />
+        <Route element={<SavedPostsPage />} path="/saved-posts" />
+        <Route element={<HistoryPage />} path="/history" />
+        <Route element={<UserCommentsPage />} path="/my-comments" />
+        <Route element={<CategoryPage />} path="/:categorySlug" />
+        <Route element={<ProfilePage />} path="/profile" />
       </Routes>
 
       <Footer />
