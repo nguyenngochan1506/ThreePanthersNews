@@ -11,7 +11,6 @@ import { SidebarNewsList } from '@/components/index/SidebarNewsList';
 
 const PLACEHOLDER = 'https://via.placeholder.com/600x400?text=No+Image';
 
-// 1. CUSTOM HOOK
 const useNewsData = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
