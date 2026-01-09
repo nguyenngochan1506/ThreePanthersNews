@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   Dropdown,
   DropdownItem,
@@ -180,9 +180,31 @@ export const HeaderTop = () => {
   );
 };
 
-
 export const MainNav = () => {
   const [showMegaMenu, setShowMegaMenu] = useState(false);
+
+  const location = useLocation();
+  const megaMenuRef = useRef<HTMLDivElement | null>(null);
+
+  // ✅ đổi trang là đóng menu
+  useEffect(() => {
+    setShowMegaMenu(false);
+  }, [location.pathname]);
+
+  // ✅ click ra ngoài là đóng menu
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!showMegaMenu) return;
+      const target = e.target as Node;
+
+      if (megaMenuRef.current && !megaMenuRef.current.contains(target)) {
+        setShowMegaMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showMegaMenu]);
 
   return (
     <>
@@ -210,6 +232,8 @@ export const MainNav = () => {
               <button
                 className="px-3 py-2 text-xl font-bold hover:bg-blue-700"
                 onClick={() => setShowMegaMenu((v) => !v)}
+                aria-expanded={showMegaMenu}
+                aria-label="Toggle mega menu"
               >
                 …
               </button>
@@ -219,9 +243,8 @@ export const MainNav = () => {
       </div>
 
       {showMegaMenu && (
-        <div className="bg-white border-b shadow-sm">
+        <div ref={megaMenuRef} className="bg-white border-b shadow-sm">
           <div className="container mx-auto px-6 py-6 grid grid-cols-1 md:grid-cols-[1fr_320px] gap-8">
-            
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {primaryMenus.map((group) => {
                 const parentSlug = slugify(group.title);
@@ -233,6 +256,7 @@ export const MainNav = () => {
                         {group.title}
                       </Link>
                     </h4>
+
                     <ul className="space-y-2">
                       {group.items.map((item) => (
                         <li key={item}>
@@ -251,7 +275,6 @@ export const MainNav = () => {
               })}
             </div>
 
-          
             <div className="border-l pl-6">
               <h4 className="mb-4 font-semibold text-blue-800 uppercase text-sm">Định dạng</h4>
 
@@ -273,22 +296,38 @@ export const MainNav = () => {
 
               <ul className="space-y-3 text-sm text-gray-700">
                 <li>
-                  <Link className="flex items-center gap-3 hover:text-blue-600" to="/ly-tuong-song" onClick={() => setShowMegaMenu(false)}>
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/ly-tuong-song"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <LightBulbIcon className="w-5 h-5" /> Lý tưởng sống
                   </Link>
                 </li>
                 <li>
-                  <Link className="flex items-center gap-3 hover:text-blue-600" to="/noi-thang" onClick={() => setShowMegaMenu(false)}>
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/noi-thang"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <MegaphoneIcon className="w-5 h-5" /> Nói thẳng
                   </Link>
                 </li>
                 <li>
-                  <Link className="flex items-center gap-3 hover:text-blue-600" to="/tin-doc-quyen" onClick={() => setShowMegaMenu(false)}>
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/tin-doc-quyen"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <StarIcon className="w-5 h-5" /> Tin độc quyền
                   </Link>
                 </li>
                 <li>
-                  <Link className="flex items-center gap-3 hover:text-blue-600" to="/thi-truong" onClick={() => setShowMegaMenu(false)}>
+                  <Link
+                    className="flex items-center gap-3 hover:text-blue-600"
+                    to="/thi-truong"
+                    onClick={() => setShowMegaMenu(false)}
+                  >
                     <GlobeAltIcon className="w-5 h-5" /> Thị trường
                   </Link>
                 </li>
@@ -314,6 +353,7 @@ export const MainNav = () => {
                 >
                   <FaFacebookF />
                 </a>
+
                 <a
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-red-600 hover:text-white"
                   href="https://www.youtube.com/@nguoilaodong"
@@ -322,6 +362,7 @@ export const MainNav = () => {
                 >
                   <FaYoutube />
                 </a>
+
                 <a
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-500 hover:text-white"
                   href="https://zalo.me"
@@ -330,7 +371,11 @@ export const MainNav = () => {
                 >
                   <SiZalo />
                 </a>
-                <a className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-orange-500 hover:text-white" href="/rss">
+
+                <a
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-orange-500 hover:text-white"
+                  href="/rss"
+                >
                   <FaRss />
                 </a>
               </div>
@@ -341,7 +386,6 @@ export const MainNav = () => {
     </>
   );
 };
-
 
 const Header = () => (
   <>
